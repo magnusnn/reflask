@@ -1,7 +1,10 @@
 from flask import Flask, render_template
+from livereload import Server
 import datetime
 
 app = Flask(__name__)
+app.debug = True
+app.config['TEMPLATES_AUTO_RELOAD'] = True
 
 @app.route('/', defaults={'u_path': ''})
 @app.route('/<path:u_path>')
@@ -14,4 +17,5 @@ def message():
     return str(current_time)
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    server = Server(app.wsgi_app)
+    server.serve()

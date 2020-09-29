@@ -9,9 +9,9 @@ const Home = () => {
   const [time, setTime] = React.useState();
 
   useInterval(() => {
-    fetch('/time').then( res => {
+    fetch('/time').then(res => {
       return res.text()
-    }).then( text => {
+    }).then(text => {
       const time = new Date(text);
       setTime(time);
     });
