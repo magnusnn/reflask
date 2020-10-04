@@ -29,6 +29,7 @@ const Home = () => {
           Fetching time<LoadingDots />
         </LoadingTextWrapper>
       }
+      <p>For something more exciting, try the <Link to="/classifier">image classifier</Link>!</p>
     </>
   )
 };

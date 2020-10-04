@@ -17,7 +17,6 @@ def classifyImage(path, model):
     original = image.load_img(path, target_size=(224, 224))
     numpy_image = image.img_to_array(original)
     image_batch = np.expand_dims(numpy_image, axis=0)
-    print("Image converted.")
 
     processed_image = preprocess_input(image_batch, mode='caffe')
     preds = model.predict(processed_image)
@@ -27,6 +26,9 @@ def classifyImage(path, model):
 app = Flask(__name__)
 app.debug = True
 app.config['TEMPLATES_AUTO_RELOAD'] = True
+
+# Disable caching
+app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 
 @app.route('/', defaults={'u_path': ''})
 @app.route('/<path:u_path>')
@@ -43,19 +45,21 @@ def classify():
     if request.method == 'POST':
         file = request.files['image']
 
-        basepath = os.path.dirname(__file__)
-        filepath = os.path.join(basepath, 'uploads', secure_filename(file.filename))
-        file.save(filepath)
+        baseFilePath = os.path.dirname(__file__)
+        savedFilePath = os.path.join(baseFilePath, 'uploads', secure_filename(file.filename))
+        file.save(savedFilePath)
 
-        print('Starting classification process')
-
-        preds = classifyImage(filepath, model)
+        preds = classifyImage(savedFilePath, model)
         prediction = decode_predictions(preds, top=1)
         result = str(prediction[0][0][1])
-        print(result)
+        
+        print("Model sees: " + result)
+        
         return result
     return None
 
 if __name__ == "__main__":
     server = Server(app.wsgi_app)
+    server.watch('/static/dist/*.js')
+    server.watch('/templates/index.html')
     server.serve()
