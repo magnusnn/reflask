@@ -1,7 +1,7 @@
 import React from "react";
 import useInterval from "../../hooks/useInterval";
 import LoadingDots from "../LoadingDots";
-import { CameraWrapper } from "./styled";
+import { CameraWrapper, CompatNotice } from "./styled";
 
 const Classifier = () => {
 
@@ -62,6 +62,7 @@ const Classifier = () => {
         <>
             <h1>Image classifier</h1>
             <p>This page takes a picture every second and runs it through ResNet50 to attempt classification.</p>
+            <CompatNotice>Works best on Chrome. Might not work properly on iOS devices.</CompatNotice>
             <CameraWrapper>
                 <video id="video" ref={cameraFeedRef} onCanPlay={(event) => handlePlayCameraStream(event)} />
                 {result ?

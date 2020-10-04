@@ -18,4 +18,10 @@ padding: 0;
   canvas {
     display: none;
   }
+
+`;
+
+export const CompatNotice = styled.p`
+  font-size: 12px;
+  font-style: italic;
 `;
