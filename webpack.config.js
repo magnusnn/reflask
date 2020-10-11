@@ -2,7 +2,7 @@ const path = require("path");
 
 module.exports = {
     entry: {
-        main: "./src/index.js",
+        main: "./frontend/src/index.js",
     },
     module: {
         rules: [
@@ -11,7 +11,7 @@ module.exports = {
                 use: "babel-loader",
                 resolve: {
                     extensions: [".js", ".jsx"]
-                  },
+                },
             },
             {
                 test: /\.(svg|png|jpg|jpeg|gif)$/,
@@ -19,7 +19,7 @@ module.exports = {
 
                 options: {
                     name: "[name].[ext]",
-                    outputPath: ".static/dist",
+                    outputPath: ".frontend/static/dist",
                 },
             },
             {
@@ -29,7 +29,7 @@ module.exports = {
         ],
     },
     output: {
-        path: path.resolve(__dirname, "static/dist"),
+        path: path.resolve(__dirname, "backend/static/dist"),
         filename: "[name].bundle.js",
     },
 };

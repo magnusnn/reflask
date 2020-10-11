@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import useInterval from "../../hooks/useInterval";
-import LoadingDots from "../LoadingDots";
+import LoadingDots from "../../components/LoadingDots";
 import { LoadingTextWrapper, TimeWrapper } from "./styled";
 
 const Home = () => {
@@ -20,7 +20,7 @@ const Home = () => {
   return (
     <>
       <h1>Home</h1>
-      <p>This page fetches the current time from our <Link to="/about">Flask</Link> api every second.</p>
+      <p>This page fetches the current time from our api every second.</p>
       {time ?
         <TimeWrapper>
           Current time is {time.toLocaleTimeString()}.
@@ -29,6 +29,7 @@ const Home = () => {
           Fetching time<LoadingDots />
         </LoadingTextWrapper>
       }
+      <p>For something more exciting, try the <Link to="/classifier">image classifier</Link>!</p>
     </>
   )
 };

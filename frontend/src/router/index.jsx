@@ -4,14 +4,14 @@ import {
   Switch,
   Route,
 } from "react-router-dom";
-import About from "../components/About";
-import Home from "../components/Home";
+import Home from "../pages/Home";
+import Classifier from "../pages/Classifier";
 
 const RootRouter = () => {
   return (
     <Router>
       <Switch>
-        <Route path="/about" component={About} />
+        <Route path="/classifier" component={Classifier} />
         <Route path="/" component={Home} />
       </Switch>
     </Router>
