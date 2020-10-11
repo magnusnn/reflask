@@ -9,16 +9,31 @@ To setup the environment and required dependencies for both frontend and backend
 ```
 python3 -m venv venv
 source venv/bin/activate
-pip install flask
+pip install -r requirements.txt
 npm install
 ```
-This will setup a virtual environment for our python backend, and install the flask framework + all the required frontend dependencies.
+This will create a virtual environment for our python backend, and install the flask framework + all the required frontend dependencies defined in requirements.txt.
 
-Then, start the project by running the following commands in their own separate terminal windows:
-```
-yarn start:api
-yarn start
-```
+Then, go ahead and start the project by running the following commands in their own separate terminal windows:
 
+```
+npm run start:api
+npm start
+```
 
 The app should now be accessible on http://localhost:5000
+
+## Tech stack
+
+The application makes use of the following libraries.
+
+**Backend (Python)**
+- Flask
+- TensorFlow / Keras
+- python-livereload
+
+**Frontend (JavaScript)**
+- React
+- React-Router
+- Styled-components
+- Webpack

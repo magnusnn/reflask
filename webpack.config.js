@@ -32,7 +32,4 @@ module.exports = {
         path: path.resolve(__dirname, "backend/static/dist"),
         filename: "[name].bundle.js",
     },
-    devServer: {
-        writeToDisk: true,
-    }
 };

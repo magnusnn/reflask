@@ -1,12 +1,12 @@
 import React from "react";
 import useInterval from "../../hooks/useInterval";
-import LoadingDots from "../LoadingDots";
+import LoadingDots from "../../components/LoadingDots";
 import { CameraWrapper, CompatNotice } from "./styled";
 
 const Classifier = () => {
 
     const [result, setResult] = React.useState("");
-
+    
     const imageRef = React.useRef();
     const cameraFeedRef = React.useRef();
 
@@ -14,6 +14,8 @@ const Classifier = () => {
         async function getCameraStream() {
             const stream = await navigator.mediaDevices.getUserMedia({
                 audio: false, video: { facingMode: 'environment' }
+            }).catch(() => {
+                setResult("Nothing! Something went wrong!");
             });
             cameraFeedRef.current.srcObject = stream;
             return stream;
@@ -38,6 +40,8 @@ const Classifier = () => {
             const response = await fetch('/classify', {
                 method: "POST",
                 body: body,
+            }).catch((error) => {
+                console.log("Error in POST");
             });
             const text = await response.text();
             setResult(text);
