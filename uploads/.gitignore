@@ -1,0 +1,6 @@
+# This directory is only used as a temporary save location
+# for blobs received from frontend.
+# Git should ignore everything in this directory
+*
+# Except this file
+!.gitignore

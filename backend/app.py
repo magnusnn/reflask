@@ -42,8 +42,6 @@ def printMessage():
 
 if __name__ == "__main__":
     server = Server(app.wsgi_app)
-    # Avoid reload on upload
-    server.watch('uploads/blob', ignore=True)
     
     # Serve app with live reload.
     server.serve(port=5000)

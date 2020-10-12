@@ -16,6 +16,8 @@ This will create a virtual environment for our python backend, and install the f
 
 Then, go ahead and start the project by running the following commands in their own separate terminal windows:
 
+*(Make sure you have activated the virtual environent in the terminal before starting the backend)*
+
 ```
 npm run start:api
 npm start

@@ -20,7 +20,7 @@ const Home = () => {
   return (
     <>
       <h1>Home</h1>
-      <p>This page fetches the current time from our api every second.</p>
+      <p>This page fetchesss the current time from our api every second.</p>
       {time ?
         <TimeWrapper>
           Current time is {time.toLocaleTimeString()}.

@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "yarn webpack --mode development --watch",
+    "start": "webpack --mode development --watch",
     "start:api": "python backend/app.py"
   },
   "dependencies": {
