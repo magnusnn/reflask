@@ -1,14 +1,12 @@
 import React from "react";
-import RootRouter from "./router";
-import { GlobalStyles } from "./styled";
+import Classifier from "./features/classifier";
 import "./styles.css";
 
 const App = () => {
-
   return (
-    <GlobalStyles>
-      <RootRouter />
-    </GlobalStyles>
+    <main>
+      <Classifier />
+    </main>
   )
 };
 

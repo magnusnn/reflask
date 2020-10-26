@@ -1,13 +1,14 @@
-import datetime
 import os
 from flask import Flask, request, render_template
 from livereload import Server, shell
 from classifier import classifyImage
 
+APP_PORT = 5000
+
 app = Flask(__name__)
 app.debug = True
 
-# Disable caching and
+# Disable caching.
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 # Enable template auto reload.
 app.config['TEMPLATES_AUTO_RELOAD'] = True
@@ -18,11 +19,7 @@ app.config['TEMPLATES_AUTO_RELOAD'] = True
 def index(u_path):
     return render_template("index.html")
 
-@app.route('/time')
-def message():
-    current_time = datetime.datetime.now()  
-    return str(current_time)
-
+# Classification route.
 @app.route('/classify', methods=['GET', 'POST'])
 def classify():
     if request.method == 'POST':
@@ -36,12 +33,13 @@ def classify():
             return result
     return None
 
-def printMessage():
-    print("Detected change in bundle.js")
-    return None
-
 if __name__ == "__main__":
     server = Server(app.wsgi_app)
     
+    # Ignore changes to blob to prevent refresh.
+    server.watch("../uploads/blob", ignore=True)
+    
+    server.watch("./static/dist/main.bundle.js", ignore=False)
+
     # Serve app with live reload.
-    server.serve(port=5000)
+    server.serve(port=APP_PORT)
