@@ -1,34 +1,31 @@
 import os
 from flask import Flask, request, send_from_directory
-from requests import get
-from livereload import Server, shell
+from livereload import Server
 from classifier import classifyImage
 from reverseProxy import proxyRequest
-from os import getenv
 
-app = Flask(__name__, static_folder="/static/dist")
+app = Flask(__name__, static_folder="/static")
 app.debug = True
-
-# Get mode from environment variables.
-# If no env variable passed in, default to prod.
-MODE = getenv("MODE")
-
-DEV_SERVER_URL = "http://localhost:3000"
 APP_PORT = 5000
 
-# Disable caching.
-app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
-# Enable template auto reload.
-app.config['TEMPLATES_AUTO_RELOAD'] = True
+# Get mode from environment variables.
+MODE = os.getenv("MODE")
+# Set URL for dev server for reverse proxy.
+DEV_SERVER_URL = "http://localhost:3000"
 
 @app.route("/", defaults={"path": "index.html"})
 @app.route("/<path:path>")
-def getApp(path):
+def index(path):
+    # Route through webpack-dev-server if development mode.
     if MODE == "development":
         return proxyRequest(DEV_SERVER_URL, request.path)
-    return send_from_directory("static/dist", "index.html")
+    # Serve any static assets such as .js or .css files.
+    if path != "" and os.path.exists(app.static_folder + '/' + path):
+        return send_from_directory(app.static_folder, path)
+    # Serve index.html
+    else:
+        return send_from_directory(app.static_folder, 'index.html')
 
-# Classification route.
 @app.route('/classify', methods=['GET', 'POST'])
 def classify():
     if request.method == 'POST':
@@ -36,7 +33,7 @@ def classify():
             file = request.files['image']
     
             result = classifyImage(file)
-            
+ 
             print("Model classification: " + result)
             
             return result
@@ -45,7 +42,7 @@ def classify():
 if __name__ == "__main__":
     server = Server(app.wsgi_app)
 
-    # Avoid refresh on new image received.
+    # Avoid hot reload when image is received.
     server.watch("../uploads/*", ignore=True)
 
     # Serve app with live reload.

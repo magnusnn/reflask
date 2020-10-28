@@ -4,9 +4,10 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
+    "build": "webpack -p",
     "start": "webpack-dev-server",
     "start:api": "MODE=development python backend/app.py",
-    "build": "webpack -p"
+    "start:prod": "npm run build && python backend/app.py"
   },
   "dependencies": {
     "@babel/runtime": "^7.11.2",

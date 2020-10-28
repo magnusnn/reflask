@@ -1,15 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import useInterval from "../../hooks/useInterval";
 import LoadingDots from "../../components/LoadingDots";
+import "./styles.css";
 
 const Classifier = () => {
-
   const [result, setResult] = React.useState("");
 
-  const imageRef = React.useRef();
   const cameraFeedRef = React.useRef();
+  const imageRef = React.useRef();
 
-  React.useEffect(() => {
+  useEffect(() => {
     async function getCameraStream() {
       const stream = await navigator.mediaDevices.getUserMedia({
         audio: false, video: { facingMode: 'environment' }
@@ -22,6 +22,7 @@ const Classifier = () => {
     getCameraStream();
   }, [])
 
+  // Starts the camera stream if available.
   const handlePlayCameraStream = () => {
     if (cameraFeedRef.current) {
       cameraFeedRef.current.play();
@@ -30,23 +31,19 @@ const Classifier = () => {
 
   // Runs every second to capture image and call API for classification.
   useInterval(async () => {
-    // Update image.
-    captureImage();
+    captureImageFromCamera();
 
     if (imageRef.current) {
-      const body = new FormData();
-
-      body.append('image', imageRef.current);
+      const formData = new FormData();
+      formData.append('image', imageRef.current);
 
       const response = await fetch('/classify', {
         method: "POST",
-        body: body,
-      }).catch((error) => {
-        console.error(`Error: ${error}`);
+        body: formData,
       });
 
       // Get status code.
-      const status = response.status;
+      const { status } = response;
 
       // Set result if response is OK.s
       if (status === 200) {
@@ -59,7 +56,11 @@ const Classifier = () => {
     }
   }, 1000)
 
-  const captureImage = async () => {
+  /*  Captures an image by reading it from video stream,
+   *  and then drawing it to the canvas where we can extract
+   *  it and convert it to a blob.
+   */
+  const captureImageFromCamera = async () => {
     const canvas = document.getElementById("canvas");
     const video = document.getElementById("video");
     const context = canvas.getContext('2d');
@@ -72,14 +73,14 @@ const Classifier = () => {
     var data = canvas.toBlob((blob) => {
       imageRef.current = blob;
     });
+
     return data;
   }
   return (
     <>
       <h1>Image classifier</h1>
-      <p>Test</p>
       <p>This page takes a picture every second and runs it through ResNet50 to attempt classification.</p>
-      <p className="compat-notice">Works best on Chrome. Might not work properly on iOS devices.</p>
+      <p className="compat-notice">Note: Works best on Chrome.</p>
       <div className="camera-wrapper">
         <video
           id="video"

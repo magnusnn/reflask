@@ -1,6 +1,6 @@
-/* 
-  useInterval hook by Dan Abramov: 
-  https://overreacted.io/making-setinterval-declarative-with-react-hooks/
+/**
+ * useInterval hook by Dan Abramov: 
+ * https://overreacted.io/making-setinterval-declarative-with-react-hooks/
 */
 
 import React, { useState, useEffect, useRef } from 'react';

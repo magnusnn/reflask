@@ -20,7 +20,7 @@ module.exports = {
 
                 options: {
                     name: "[name].[ext]",
-                    outputPath: ".frontend/static/dist",
+                    outputPath: ".frontend/static",
                 },
             },
             {
@@ -31,12 +31,12 @@ module.exports = {
     },
     plugins: [new HTMLWebpackPlugin({ template: "./frontend/src/index.html" })],
     output: {
-        path: path.resolve(__dirname, "backend/static/dist"),
+        path: path.resolve(__dirname, "backend/static/"),
         filename: "[name].bundle.js",
     },
     devServer: {
         contentBase: [
-            path.join(__dirname, "backend/static/dist"),
+            path.join(__dirname, "backend/static/"),
         ],
         port: 3000,
         watchOptions: {
