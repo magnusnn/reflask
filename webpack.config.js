@@ -1,4 +1,5 @@
 const path = require("path");
+const HTMLWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
     entry: {
@@ -28,8 +29,20 @@ module.exports = {
             },
         ],
     },
+    plugins: [new HTMLWebpackPlugin({ template: "./frontend/src/index.html" })],
     output: {
         path: path.resolve(__dirname, "backend/static/dist"),
         filename: "[name].bundle.js",
+    },
+    devServer: {
+        contentBase: [
+            path.join(__dirname, "backend/static/dist"),
+        ],
+        port: 3000,
+        watchOptions: {
+            poll: true,
+            ignored: ['assets/**', 'node_modules/**']
+        },
+        sockPort: 3000,
     },
 };

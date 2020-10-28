@@ -42,7 +42,7 @@ const Classifier = () => {
         method: "POST",
         body: body,
       }).catch((error) => {
-        console.error(`Error ${error}`);
+        console.error(`Error: ${error}`);
       });
 
       // Get status code.
@@ -77,6 +77,7 @@ const Classifier = () => {
   return (
     <>
       <h1>Image classifier</h1>
+      <p>Test</p>
       <p>This page takes a picture every second and runs it through ResNet50 to attempt classification.</p>
       <p className="compat-notice">Works best on Chrome. Might not work properly on iOS devices.</p>
       <div className="camera-wrapper">
