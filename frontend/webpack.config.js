@@ -3,7 +3,7 @@ const HTMLWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
     entry: {
-        main: "./frontend/src/index.js",
+        main: "./src/index.js",
     },
     module: {
         rules: [
@@ -29,14 +29,14 @@ module.exports = {
             },
         ],
     },
-    plugins: [new HTMLWebpackPlugin({ template: "./frontend/src/index.html" })],
+    plugins: [new HTMLWebpackPlugin({ template: "./src/index.html" })],
     output: {
-        path: path.resolve(__dirname, "backend/static/"),
+        path: path.resolve(__dirname, "../backend/static/"),
         filename: "[name].bundle.js",
     },
     devServer: {
         contentBase: [
-            path.join(__dirname, "backend/static/"),
+            path.join(__dirname, "../backend/static/"),
         ],
         port: 3000,
         watchOptions: {

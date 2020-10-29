@@ -1,23 +1,22 @@
+/* Hide canvas used for capturing images */
+canvas {
+  display: none;
+}
+
 video {
   border: 1px solid black;
   margin: 0;
   max-width: 90%;
 }
 
-/* Hide canvas used for capturing images */
-canvas {
-  display: none;
-  visibility: hidden;
-}
-
-.camera-wrapper {
+.video-container {
   align-content: center;
   height: auto;
   margin: 0;
   padding: 0;
 }
 
-.compat-notice {
+.compatibility-notice {
   font-size: 12px;
   font-style: italic;
 }

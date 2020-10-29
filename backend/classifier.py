@@ -11,7 +11,7 @@ model = ResNet50(weights='imagenet')
 
 def classifyImage(file):
     baseFilePath = os.path.dirname(__file__)
-    savedFilePath = os.path.join(baseFilePath, '../uploads', secure_filename(file.filename))
+    savedFilePath = os.path.join(baseFilePath, './uploads', secure_filename(file.filename))
     file.save(savedFilePath)
     
     preds = getPrediction(savedFilePath, model)

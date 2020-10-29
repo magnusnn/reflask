@@ -6,8 +6,8 @@
   "scripts": {
     "build": "webpack -p",
     "start": "webpack-dev-server",
-    "start:api": "MODE=development python backend/app.py",
-    "start:prod": "npm run build && python backend/app.py"
+    "start:server": "cross-env MODE=development python ../backend/app.py",
+    "start:prod": "npm run build && python ../backend/app.py"
   },
   "dependencies": {
     "@babel/runtime": "^7.11.2",
@@ -20,6 +20,7 @@
     "@babel/preset-env": "^7.11.5",
     "@babel/preset-react": "^7.10.4",
     "babel-loader": "^8.1.0",
+    "cross-env": "^7.0.2",
     "css-loader": "^4.3.0",
     "file-loader": "^6.1.0",
     "html-webpack-plugin": "^4.5.0",

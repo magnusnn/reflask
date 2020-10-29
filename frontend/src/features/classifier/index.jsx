@@ -14,9 +14,11 @@ const Classifier = () => {
       const stream = await navigator.mediaDevices.getUserMedia({
         audio: false, video: { facingMode: 'environment' }
       }).catch(() => {
-        setResult("Nothing! Something went wrong!");
+        setResult("Oh no! Something went wrong.");
       });
+
       cameraFeedRef.current.srcObject = stream;
+
       return stream;
     };
     getCameraStream();
@@ -27,7 +29,7 @@ const Classifier = () => {
     if (cameraFeedRef.current) {
       cameraFeedRef.current.play();
     }
-  }
+  };
 
   // Runs every second to capture image and call API for classification.
   useInterval(async () => {
@@ -42,10 +44,8 @@ const Classifier = () => {
         body: formData,
       });
 
-      // Get status code.
       const { status } = response;
 
-      // Set result if response is OK.s
       if (status === 200) {
         const text = await response.text();
         setResult(text);
@@ -54,7 +54,7 @@ const Classifier = () => {
       }
 
     }
-  }, 1000)
+  }, 1000);
 
   /*  Captures an image by reading it from video stream,
    *  and then drawing it to the canvas where we can extract
@@ -75,24 +75,31 @@ const Classifier = () => {
     });
 
     return data;
-  }
+  };
+
   return (
     <>
-      <h1>Image classifier</h1>
-      <p>This page takes a picture every second and runs it through ResNet50 to attempt classification.</p>
-      <p className="compat-notice">Note: Works best on Chrome.</p>
-      <div className="camera-wrapper">
-        <video
-          id="video"
-          ref={cameraFeedRef}
-          onCanPlay={(event) => handlePlayCameraStream(event)}
-        />
-        {result ?
-          <p className="result-text">Currently seeing: {result}</p> :
-          <p className="result-text">Scanning environment <LoadingDots /></p>
-        }
-        <canvas id="canvas"></canvas>
-      </div>
+      <header>
+        <h1>Image classifier</h1>
+      </header>
+      <main>
+        <p>This page takes a picture every second and runs it through ResNet50 to attempt classification.</p>
+        <div className="video-container">
+          <video
+            id="video"
+            ref={cameraFeedRef}
+            onCanPlay={(event) => handlePlayCameraStream(event)}
+          />
+          {result ?
+            <p className="result-text">Currently seeing: {result}</p> :
+            <p className="result-text">Scanning environment <LoadingDots /></p>
+          }
+          <canvas id="canvas"></canvas>
+        </div>
+      </main>
+      <footer>
+        <p className="compatibility-notice">Note: The application works best when using Chrome.</p>
+      </footer>
     </>
   )
 };

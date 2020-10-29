@@ -4,9 +4,7 @@ import "./styles.css";
 
 const App = () => {
   return (
-    <main>
-      <Classifier />
-    </main>
+    <Classifier />
   )
 };
 
