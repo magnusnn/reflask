@@ -6,7 +6,7 @@ import "./styles.css";
 const Classifier = () => {
   const [result, setResult] = React.useState("");
 
-  const cameraFeedRef = React.useRef();
+  const videoRef = React.useRef();
   const imageRef = React.useRef();
 
   useEffect(() => {
@@ -16,24 +16,22 @@ const Classifier = () => {
       }).catch(() => {
         setResult("Oh no! Something went wrong.");
       });
-
-      cameraFeedRef.current.srcObject = stream;
-
-      return stream;
+      videoRef.current.srcObject = stream;
     };
     getCameraStream();
   }, [])
 
   // Starts the camera stream if available.
-  const handlePlayCameraStream = () => {
-    if (cameraFeedRef.current) {
-      cameraFeedRef.current.play();
+  const playCameraStream = () => {
+    if (videoRef.current) {
+      videoRef.current.play();
     }
   };
 
-  // Runs every second to capture image and call API for classification.
+  /* Runs every second to capture image and call API for classification.
+   */
   useInterval(async () => {
-    captureImageFromCamera();
+    await captureImageFromCamera();
 
     if (imageRef.current) {
       const formData = new FormData();
@@ -70,11 +68,9 @@ const Classifier = () => {
 
     context.drawImage(video, 0, 0, window.innerWidth, window.innerHeight);
 
-    var data = canvas.toBlob((blob) => {
+    canvas.toBlob((blob) => {
       imageRef.current = blob;
     });
-
-    return data;
   };
 
   return (
@@ -87,8 +83,8 @@ const Classifier = () => {
         <div className="video-container">
           <video
             id="video"
-            ref={cameraFeedRef}
-            onCanPlay={(event) => handlePlayCameraStream(event)}
+            ref={videoRef}
+            onCanPlay={(event) => playCameraStream(event)}
           />
           {result ?
             <p className="result-text">Currently seeing: {result}</p> :
