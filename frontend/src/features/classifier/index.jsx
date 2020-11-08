@@ -3,10 +3,10 @@ import useInterval from "../../hooks/useInterval";
 import "./styles.css";
 
 const Classifier = () => {
-  const [result, setResult] = React.useState("");
-
   const videoRef = React.useRef();
   const imageRef = React.useRef();
+
+  const [result, setResult] = React.useState("");
 
   useEffect(() => {
     async function getCameraStream() {
@@ -15,8 +15,10 @@ const Classifier = () => {
       }).catch(() => {
         setResult("Oh no! Something went wrong.");
       });
+
       videoRef.current.srcObject = stream;
     };
+
     getCameraStream();
   }, [])
 
@@ -27,8 +29,6 @@ const Classifier = () => {
     }
   };
 
-  /* Runs every second to capture image and call API for classification.
-   */
   useInterval(async () => {
     await captureImageFromCamera();
 
@@ -41,9 +41,7 @@ const Classifier = () => {
         body: formData,
       });
 
-      const { status } = response;
-
-      if (status === 200) {
+      if (response.status === 200) {
         const text = await response.text();
         setResult(text);
       } else {
@@ -53,10 +51,6 @@ const Classifier = () => {
     }
   }, 1000);
 
-  /*  Captures an image by reading it from video stream,
-   *  and then drawing it to the canvas where we can extract
-   *  it and convert it to a blob.
-   */
   const captureImageFromCamera = async () => {
     const canvas = document.getElementById("canvas");
     const context = canvas.getContext('2d');
