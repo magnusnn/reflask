@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import useInterval from "../../hooks/useInterval";
-import LoadingDots from "../../components/LoadingDots";
 import "./styles.css";
 
 const Classifier = () => {
@@ -21,7 +20,7 @@ const Classifier = () => {
     getCameraStream();
   }, [])
 
-  // Starts the camera stream if available.
+  /* Starts the camera stream if available. */
   const playCameraStream = () => {
     if (videoRef.current) {
       videoRef.current.play();
@@ -85,16 +84,10 @@ const Classifier = () => {
             ref={videoRef}
             onCanPlay={(event) => playCameraStream(event)}
           />
-          {result ?
-            <p className="result-text">Currently seeing: {result}</p> :
-            <p className="result-text">Scanning environment <LoadingDots /></p>
-          }
+          <p className="result-text">Currently seeing: {result}</p>
           <canvas id="canvas"></canvas>
         </div>
       </main>
-      <footer>
-        <p className="compatibility-notice">Note: The application works best when using Chrome.</p>
-      </footer>
     </>
   )
 };
