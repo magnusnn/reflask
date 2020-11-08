@@ -41,7 +41,7 @@ module.exports = {
         port: 3000,
         watchOptions: {
             poll: true,
-            ignored: ['assets/**', 'node_modules/**']
+            ignored: ['node_modules/**']
         },
         sockPort: 3000,
     },
