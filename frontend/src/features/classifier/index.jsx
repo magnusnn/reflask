@@ -60,13 +60,12 @@ const Classifier = () => {
    */
   const captureImageFromCamera = async () => {
     const canvas = document.getElementById("canvas");
-    const video = document.getElementById("video");
     const context = canvas.getContext('2d');
 
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
-    context.drawImage(video, 0, 0, window.innerWidth, window.innerHeight);
+    context.drawImage(videoRef.current, 0, 0, window.innerWidth, window.innerHeight);
 
     canvas.toBlob((blob) => {
       imageRef.current = blob;
