@@ -6,8 +6,8 @@
   "scripts": {
     "build": "webpack -p",
     "start": "webpack-dev-server",
-    "start:server": "cross-env MODE=development python ../backend/app.py",
-    "start:prod": "npm run build && python ../backend/app.py"
+    "start:server": "cross-env FLASK_ENV=development FLASK_APP=../backend/app.py flask run",
+    "start:prod": "npm run build && cross-env FLASK_APP=../backend/app.py flask run"
   },
   "dependencies": {
     "@babel/runtime": "^7.11.2",
