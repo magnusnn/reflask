@@ -5,7 +5,7 @@ from requests import get
 
 # Simple reverse proxy for use with webpack-dev-server.
 def proxyRequest(host, path):
-    response = get("%s%s"%(host, path))
+    response = get(host + path)
 
     headers = {
         name: value
