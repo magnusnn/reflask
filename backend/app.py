@@ -1,7 +1,9 @@
 import os
+import logger
 
-APP_PORT = 5000
-MODE = os.getenv("MODE")
+MODE = os.getenv('FLASK_ENV')
 DEV_SERVER_URL = "http://localhost:3000"
+# logging.getLogger('werkzeug').disabled = True
+
 
 print(MODE)
