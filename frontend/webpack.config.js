@@ -31,12 +31,12 @@ module.exports = {
     },
     plugins: [new HTMLWebpackPlugin({ template: "./src/index.html" })],
     output: {
-        path: path.resolve(__dirname, "../backend/static/"),
-        filename: "[name].bundle.js",
+        path: path.resolve(__dirname, "../backend/"),
+        filename: "static/[name].bundle.js",
     },
     devServer: {
         contentBase: [
-            path.join(__dirname, "../backend/static/"),
+            path.join(__dirname, "../backend/"),
         ],
         port: 3000,
         watchOptions: {
